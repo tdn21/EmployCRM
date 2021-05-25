@@ -27,15 +27,15 @@ class Task(models.Model):
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(blank=True, null=True, max_length=100)
+    first_name = models.CharField(max_length=100)
     last_name = models.CharField(blank=True, null=True, max_length=100)
-    phone_number = models.CharField(blank=True, null=True, max_length=20)
+    phone_number = models.CharField(max_length=20)
     email = models.EmailField()
-    college_name = models.CharField(blank=True, null=True, max_length=200)
-    college_roll_number = models.CharField(blank=True, null=True, max_length=20)
-    profile = models.CharField(blank=True, null=True, max_length=100)
-    assigned_to = models.CharField(blank=True, null=True, max_length=100)
-    joining_date = models.CharField(blank=True, null=True, max_length=20)
+    college_name = models.CharField(max_length=200)
+    college_roll_number = models.CharField(max_length=20)
+    profile = models.CharField(max_length=100)
+    assigned_to = models.CharField(max_length=100)
+    joining_date = models.CharField(max_length=20)
     offer_letter_issue_date = models.CharField(blank=True, null=True, max_length=20)
     completion_letter_issue_date = models.CharField(blank=True, null=True, max_length=20)
     is_updated = models.BooleanField("is_updated", default=False)
@@ -53,3 +53,9 @@ def post_user_created_signal(sender, instance, created, **kwargs):
 
 
 post_save.connect(post_user_created_signal, sender=User)
+
+
+class College(models.Model):
+    name = models.CharField(max_length=200)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
