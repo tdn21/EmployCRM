@@ -8,26 +8,34 @@ from django.http import HttpResponse
 from django.views import generic
 
 from .models import Task
-from .forms import TaskForm, TaskModelForm
+from .forms import TaskForm, TaskModelForm, CustomUserCreationForm
+
+
+class SignupView(generic.CreateView):
+    template_name = "registration/signup.html"
+    form_class = CustomUserCreationForm
+
+    def get_success_url(self):
+        return reverse("login")
 
 
 class LandingPageView(generic.TemplateView):
     template_name = "landing.html"
 
 
-class TaskListView(generic.ListView):
+class TaskListView(LoginRequiredMixin, generic.ListView):
     template_name = "tasks/task_list.html"
     queryset = Task.objects.all()
     context_object_name = "tasks"
 
 
-class TaskDetailView(generic.DetailView):
+class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = "tasks/task_detail.html"
     queryset = Task.objects.all()
     context_object_name = "task"
 
 
-class TaskCreateView(generic.CreateView):
+class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "tasks/task_create.html"
     form_class = TaskModelForm
 
@@ -35,7 +43,7 @@ class TaskCreateView(generic.CreateView):
         return reverse("tasks:task-list")
 
 
-class TaskUpdateView(generic.UpdateView):
+class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = "tasks/task_update.html"
     queryset = Task.objects.all()
     form_class = TaskModelForm
@@ -43,7 +51,8 @@ class TaskUpdateView(generic.UpdateView):
     def get_success_url(self):
         return reverse("tasks:task-list")
 
-class TaskDeleteView(generic.DeleteView):
+
+class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = "tasks/task_delete.html"
     queryset = Task.objects.all()
 
