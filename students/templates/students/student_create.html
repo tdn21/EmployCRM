@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <a href="{% url 'students:student-list' %}">Go back to students</a>
+    <hr />
+    <h1>Add a new student</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </from>
+{% endblock content %}

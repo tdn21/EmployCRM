@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.views import generic
 
-from .models import Task
+from .models import Task, Student
 from .forms import TaskForm, TaskModelForm, CustomUserCreationForm
 
 
@@ -41,6 +41,12 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
 
     def get_success_url(self):
         return reverse("tasks:task-list")
+
+    def form_valid(self, form):
+        task = form.save(commit=False)
+        task.student = Student.objects.get(user=self.request.user)
+        task.save()
+        return super(TaskCreateView, self).form_valid(form)
 
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
