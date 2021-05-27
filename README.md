@@ -6,6 +6,7 @@ This project is a django based CRM application providing dashboard for employees
 
 * tasks
 * students
+* colleges
 
 ### DB Models
 
