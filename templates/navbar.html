@@ -10,6 +10,10 @@
       {% if not request.user.is_authenticated %}
       <a href="{% url 'signup' %}" class="mr-5 hover:text-gray-900">Sign Up</a>
       {% endif %}
+      {% if request.user.is_authenticated %}
+      <a href="{% url 'students:student-list' %}" class="mr-5 hover:text-gray-900">Students</a>
+      <a href="{% url 'tasks:task-list' %}" class="mr-5 hover:text-gray-900">Tasks</a>
+      {% endif %}
     </nav>
     {% if request.user.is_authenticated %}
     Logged in as: {{ request.user.username }}
