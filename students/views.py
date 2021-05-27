@@ -1,21 +1,21 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, reverse
 from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
+from .mixins import AdminAndLoginRequiredMixin
 
 from tasks.models import Student
 from .forms import NewStudentModelForm, StudentModelForm
 
 User = get_user_model()
 
-class StudentListView(LoginRequiredMixin, generic.ListView):
+class StudentListView(AdminAndLoginRequiredMixin, generic.ListView):
     template_name = "students/student_list.html"
 
     def get_queryset(self):
         return Student.objects.all()
 
 
-class StudentCreateView(LoginRequiredMixin, generic.CreateView):
+class StudentCreateView(AdminAndLoginRequiredMixin, generic.CreateView):
     template_name = "students/student_create.html"
     form_class = NewStudentModelForm
 
@@ -40,7 +40,7 @@ class StudentCreateView(LoginRequiredMixin, generic.CreateView):
         return super(StudentCreateView, self).form_valid(form)
 
 
-class StudentDetailView(LoginRequiredMixin, generic.DetailView):
+class StudentDetailView(AdminAndLoginRequiredMixin, generic.DetailView):
     template_name = "students/student_detail.html"
     context_object_name = "student"
 
@@ -48,7 +48,7 @@ class StudentDetailView(LoginRequiredMixin, generic.DetailView):
         return Student.objects.all()
 
 
-class StudentUpdateView(LoginRequiredMixin, generic.UpdateView):
+class StudentUpdateView(AdminAndLoginRequiredMixin, generic.UpdateView):
     template_name = "students/student_update.html"
     form_class = StudentModelForm
 
@@ -59,7 +59,7 @@ class StudentUpdateView(LoginRequiredMixin, generic.UpdateView):
         return reverse("students:student-list")
 
 
-class StudentDeleteView(LoginRequiredMixin, generic.DeleteView):
+class StudentDeleteView(AdminAndLoginRequiredMixin, generic.DeleteView):
     template_name = "students/student_delete.html"
     context_object_name = "student"
 

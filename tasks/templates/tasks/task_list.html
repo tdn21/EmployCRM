@@ -7,9 +7,11 @@
       <div>
         <h1 class="text-4xl text-gray-800">Tasks</h1>
       </div>
-      <div>
-        <a class="text-gray-500 hover:text-blue-500" href="{% url 'tasks:task-create' %}">create task</a>
-      </div>
+      {% if not request.user.is_admin %}
+        <div>
+          <a class="text-gray-500 hover:text-blue-500" href="{% url 'tasks:task-create' %}">create task</a>
+        </div>
+      {% endif %}
     </div>
     <div class="flex flex-wrap -m-4">
       {% for task in tasks %}

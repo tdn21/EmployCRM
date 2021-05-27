@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <a href="{% url 'colleges:college-list' %}">Go back to colleges</a>
+    <hr />
+    <h1>Are you sure you want to delete this college?</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">YES</button>
+    </from>
+{% endblock content %}
