@@ -19,10 +19,6 @@ class SignupView(generic.CreateView):
         return reverse("login")
 
 
-class LandingPageView(generic.TemplateView):
-    template_name = "landing.html"
-
-
 class TaskListView(LoginRequiredMixin, generic.ListView):
     template_name = "tasks/task_list.html"
     context_object_name = "tasks"

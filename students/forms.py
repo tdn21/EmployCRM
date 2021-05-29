@@ -29,7 +29,7 @@ class StudentModelForm(forms.ModelForm):
             'joining_date',
             'offer_letter_issue_date',
             'completion_letter_issue_date',
-            'is_updated',
+            # 'is_updated',
             'is_offer_letter_issued',
             'is_completion_letter_issued'
         )
