@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load tailwind_filters %}
+
+{% block content %}
+<div class="max-w-lg mx-auto">
+        <a class="hover:text-blue-500" href="{% url 'students:student-list' %}">Go back to students</a>
+        {{order}}
+        {% if messages %}
+            {% for message in messages %}
+                <div>
+    <!--                | means OR operator-->
+                    <strong>{{message|safe}}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="py-5 border-t border-gray-200">
+            <h1 class="text-4xl text-gray-700">Upload Students in CSV format</h1>
+        </div>
+        <form action="" method="POST" enctype="multipart/form-data" id="upload_students">
+        {% csrf_token %}
+        <label for="file1"> Upload a file</label>
+            <hr></hr>
+        <input type="file"  id="file1" name="file">
+            <hr></hr>
+        <label>Only accepts CSV files</label>
+            <hr></hr>
+        <button type="submit">Upload</button>
+    </form>
+</div>
+{% endblock content %}

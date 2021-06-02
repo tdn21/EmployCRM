@@ -4,7 +4,8 @@ from .views import (
     StudentDeleteView,
     StudentDetailView,
     StudentListView,
-    StudentUpdateView
+    StudentUpdateView,
+    UploadStudents
 )
 
 app_name = "students"
@@ -15,4 +16,5 @@ urlpatterns = [
     path('<int:pk>/update/', StudentUpdateView.as_view(), name='student-update'),
     path('<int:pk>/delete/', StudentDeleteView.as_view(), name='student-delete'),
     path('create/', StudentCreateView.as_view(), name='student-create'),
+    path('upload_students/', UploadStudents.as_view(), name='upload-students'),
 ]

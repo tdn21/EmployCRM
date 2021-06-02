@@ -1,0 +1,35 @@
+{% extends 'offer_letter_template.html' %}
+{% block content %}
+{%if not employee.request_for_offer_letter %}
+        <div>
+            <p>
+                I hereby declare that the details furnished above are true and correct to the best of my knowledge and belief. Also, I hereby agree to abide by the terms and conditions provided above.
+                I allow company to take necessary measures incase I am found in breach of the mentioned clauses.
+                I Formally give my consent to Medicento & YoursBiz to keep my personal information after the date of application and consider my profile for any further opportunities.
+            </p>
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="acknowledge">
+                <input type="checkbox" name="check-acknowledge" id="check-acknowledge" required checked>
+                <label for="check-acknowledge">I hereby acknowledge that I had read all the terms and conditions properly and accept all the terms
+                    and conditions</label>
+                <br/>
+                <br/>
+            </div>
+            <input type="submit" value="Request For Offer Letter">
+        </form>
+    {% else %}
+        <form action="" method="post">
+            {%csrf_token%}
+            <input type="submit" value="Download Offer Letter.">
+        </form>
+    {%endif%}
+    {% if message %}
+        <script>
+                window.onload=function(){
+                    alert('{{message}}')
+                }
+        </script>
+    {% endif %}
+{% endblock %}
