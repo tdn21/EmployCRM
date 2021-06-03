@@ -19,3 +19,11 @@ Each app has its own url namespace, so concerned urls can be found in app_name/u
 ### Views
 
 Views corresponding to each app can be found in app_name/views.py
+
+
+### How to setup local project
+Run these commands in your command line
+
+* python manage.py makemigrations
+* python manage.py migrate
+* python manage.py runserver
