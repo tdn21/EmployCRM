@@ -21,8 +21,8 @@
           <a href="{% url 'colleges:college-list' %}" class="mr-5 hover:text-gray-900">Colleges</a>
         {% else %}
           <a href="#" class="mr-5 hover:text-gray-900">My Details</a>
-          <a href="#" class="mr-5 hover:text-gray-900">Offer Letter</a>
-          <a href="#" class="mr-5 hover:text-gray-900">Completion Letter</a>
+          <a href="{% url 'tasks:offer-letter' %}" class="mr-5 hover:text-gray-900">Offer Letter</a>
+          <a href="{% url 'tasks:preview-completion-letter' %}" class="mr-5 hover:text-gray-900">Completion Letter</a>
         {% endif %}
         <a href="{% url 'tasks:task-list' %}" class="mr-5 hover:text-gray-900">Tasks</a>
       {% endif %}
