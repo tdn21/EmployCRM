@@ -80,3 +80,4 @@ class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
 
     def get_success_url(self):
         return reverse("tasks:task-list")
+
