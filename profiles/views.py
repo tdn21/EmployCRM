@@ -2,8 +2,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import render, reverse
 from django.views import generic
 from students.mixins import AdminAndLoginRequiredMixin
-
-from tasks.models import Profile
+from students.models import Profile
 from .forms import ProfileModelForm
 
 User = get_user_model()

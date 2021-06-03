@@ -4,12 +4,11 @@ from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path, include
 
-from tasks.views import SignupView
+from students.views import SignupView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', LoginView.as_view(), name="login"),
-    path('tasks/', include('tasks.urls', namespace="tasks")),
     path('students/', include('students.urls', namespace="students")),
     path('colleges/', include('colleges.urls', namespace="colleges")),
     path('profiles/', include('profiles.urls', namespace="profiles")),

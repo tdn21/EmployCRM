@@ -1,5 +1,5 @@
 from django import forms
-from tasks.models import Link
+from students.models import Link
 
 
 class LinkModelForm(forms.ModelForm):
@@ -8,5 +8,6 @@ class LinkModelForm(forms.ModelForm):
         fields = (
             'name',
             'link',
-            'description'
+            'description',
+            'profile'
         )

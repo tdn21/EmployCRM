@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'crispy_tailwind',
 
     # local apps
-    'tasks',
     'students',
     'colleges',
     'profiles',
@@ -134,9 +133,9 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = "static_root"
 
-AUTH_USER_MODEL = 'tasks.User'
+AUTH_USER_MODEL = 'students.User'
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-LOGIN_REDIRECT_URL = "/tasks/"
+LOGIN_REDIRECT_URL = "/links/"
 LOGIN_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 

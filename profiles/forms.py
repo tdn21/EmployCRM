@@ -1,5 +1,5 @@
 from django import forms
-from tasks.models import Profile
+from students.models import Profile
 
 
 class ProfileModelForm(forms.ModelForm):
