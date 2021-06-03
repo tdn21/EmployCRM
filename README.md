@@ -4,13 +4,14 @@ This project is a django based CRM application providing dashboard for employees
 
 ## Local Apps
 
-* tasks
 * students
 * colleges
+* links
+* profiles
 
 ### DB Models
 
-All models are available in tasks/models.py file
+All models are available in students/models.py file
 
 ### URLS
 
