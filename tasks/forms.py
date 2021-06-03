@@ -15,6 +15,8 @@ class TaskModelForm(forms.ModelForm):
             'project_name',
             'task_name',
             'description',
+            'profile',
+            'student'
         )
 
 

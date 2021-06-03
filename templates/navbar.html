@@ -19,6 +19,7 @@
         {% if request.user.is_admin %}
           <a href="{% url 'students:student-list' %}" class="mr-5 hover:text-gray-900">Students</a>
           <a href="{% url 'colleges:college-list' %}" class="mr-5 hover:text-gray-900">Colleges</a>
+          <a href="{% url 'profiles:profile-list' %}" class="mr-5 hover:text-gray-900">Profiles</a>
         {% else %}
           <a href="#" class="mr-5 hover:text-gray-900">My Details</a>
           <a href="#" class="mr-5 hover:text-gray-900">Offer Letter</a>

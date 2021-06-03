@@ -22,6 +22,7 @@ class Task(models.Model):
     project_name = models.CharField(max_length=100)
     task_name = models.CharField(max_length=200)
     student = models.ForeignKey("Student", null=True, blank=True, on_delete=models.CASCADE)
+    profile = models.ForeignKey("Profile", null=True, blank=True, on_delete=models.SET_NULL)
     description = models.TextField()
 
     def __str__(self):
@@ -53,6 +54,23 @@ class College(models.Model):
     name = models.CharField(max_length=200)
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+class Link(models.Model):
+    name = models.CharField(max_length=100)
+    link = models.CharField(max_length=250)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
+class Profile(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
 
     def __str__(self):
         return self.name

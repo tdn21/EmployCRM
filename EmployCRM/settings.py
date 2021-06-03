@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     # local apps
     'tasks',
     'students',
-    'colleges'
+    'colleges',
+    'profiles',
+    'links'
 ]
 
 MIDDLEWARE = [
