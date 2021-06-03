@@ -17,11 +17,12 @@ class StudentModelForm(forms.ModelForm):
             'college_name',
             'college_roll_number',
             'profile',
+            'duration',
             'assigned_to',
             'joining_date',
             'offer_letter_issue_date',
+            'leaves',
             'completion_letter_issue_date',
-            # 'is_updated',
             'is_offer_letter_issued',
             'is_completion_letter_issued'
         )

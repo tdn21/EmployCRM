@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 
 ASSIGNED_TO_CHOICES = (
@@ -22,6 +23,8 @@ class User(AbstractUser):
     offer_letter_issue_date = models.DateField(blank=True, null=True)
     completion_letter_issue_date = models.DateField(blank=True, null=True)
     is_updated = models.BooleanField("is_updated", default=False)
+    is_offer_letter_requested = models.BooleanField("is_offer_letter_requested", default=False)
+    is_completion_letter_requested = models.BooleanField("is_completion_letter_requested", default=False)
     is_offer_letter_issued = models.BooleanField("is_offer_letter_issued", default=False)
     is_completion_letter_issued = models.BooleanField("is_completion_letter_issued", default=False)
 
@@ -57,3 +60,10 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Notification(models.Model):
+    origin = models.ForeignKey("User", related_name="origin", on_delete=models.CASCADE)
+    destination = models.ForeignKey("User", related_name="destination", on_delete=models.CASCADE)
+    message = models.TextField()
+    date = models.DateTimeField(default=timezone.now)
