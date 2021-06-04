@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, reverse
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .mixins import AdminAndLoginRequiredMixin
-from .forms import NewStudentModelForm, StudentModelForm, CustomUserCreationForm
+from .forms import NewStudentModelForm, RequestCompletionLetter, RequestOfferLetter, StudentModelForm, CustomUserCreationForm, StudentUpdateDetailForm
 
 User = get_user_model()
 
@@ -76,3 +77,76 @@ class StudentDeleteView(AdminAndLoginRequiredMixin, generic.DeleteView):
 
     def get_success_url(self):
         return reverse("students:student-list")
+
+
+class StudentUpdateDetailView(LoginRequiredMixin, generic.UpdateView):
+    template_name = "students/student_update_detail.html"
+    form_class = StudentUpdateDetailForm
+    context_object_name = "student"
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        queryset = queryset.filter(is_admin = False)
+        return queryset
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.is_updated = True 
+        user.save()
+
+        return super(StudentUpdateDetailView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse("students:student-my-detail", kwargs={'pk': self.kwargs['pk']})
+
+
+class StudentMyDetailView(LoginRequiredMixin, generic.DetailView):
+    template_name = "students/student_my_detail.html"
+    context_object_name = "student"
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        queryset = queryset.filter(is_admin = False)
+        return queryset
+
+
+class RequestOfferLetterView(LoginRequiredMixin, generic.UpdateView):
+    template_name = "students/student_request_offer_letter.html"
+    form_class = RequestOfferLetter
+    context_object_name = "student"
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        queryset = queryset.filter(is_admin = False)
+        return queryset
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.is_offer_letter_requested = True 
+        user.save()
+
+        return super(RequestOfferLetterView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse("students:student-request-offer-letter", kwargs={'pk': self.kwargs['pk']})
+
+
+class RequestCompletionLetterView(LoginRequiredMixin, generic.UpdateView):
+    template_name = "students/student_request_completion_letter.html"
+    form_class = RequestCompletionLetter
+    context_object_name = "student"
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        queryset = queryset.filter(is_admin = False)
+        return queryset
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.is_completion_letter_requested = True 
+        user.save()
+
+        return super(RequestCompletionLetterView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse("students:student-request-completion-letter", kwargs={'pk': self.kwargs['pk']})

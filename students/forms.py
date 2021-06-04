@@ -1,5 +1,5 @@
 from django import forms
-from django import forms
+from django.forms import HiddenInput
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UsernameField
 
@@ -48,8 +48,42 @@ class NewStudentModelForm(forms.ModelForm):
         }
 
 
+class StudentUpdateDetailForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+            'phone_number',
+            'email',
+            'college_name',
+            'college_roll_number',
+            'profile',
+            'duration',
+            'assigned_to',
+            'joining_date',
+        )
+        widgets = {
+            'joining_date': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+        }
+
+
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ("username",)
         field_classes = {'username': UsernameField}
+
+
+class RequestOfferLetter(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name',)
+        widgets = {'first_name': HiddenInput(),}
+
+
+class RequestCompletionLetter(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name',)
+        widgets = {'first_name': HiddenInput(),}
