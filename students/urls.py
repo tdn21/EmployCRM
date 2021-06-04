@@ -1,6 +1,10 @@
 from students.forms import RequestOfferLetter
 from django.urls import path
 from .views import (
+    CompletionLetterRequestListView,
+    IssueCompletionLetterView,
+    IssueOfferLetterView,
+    OfferLetterRequestListView,
     RequestCompletionLetterView,
     RequestOfferLetterView,
     StudentCreateView,
@@ -9,7 +13,8 @@ from .views import (
     StudentListView,
     StudentMyDetailView,
     StudentUpdateDetailView,
-    StudentUpdateView
+    StudentUpdateView,
+    StudentsUploadView
 )
 
 app_name = "students"
@@ -24,4 +29,9 @@ urlpatterns = [
     path('<int:pk>/request-offer-letter/', RequestOfferLetterView.as_view(), name='student-request-offer-letter'),
     path('<int:pk>/request-completion-letter/', RequestCompletionLetterView.as_view(), name='student-request-completion-letter'),
     path('create/', StudentCreateView.as_view(), name='student-create'),
+    path('upload/', StudentsUploadView.as_view(), name='student-upload'),
+    path('offer-letter-requests', OfferLetterRequestListView.as_view(), name='student-offer-letter-request-list'),
+    path('completion-letter-requests', CompletionLetterRequestListView.as_view(), name='student-completion-letter-request-list'),
+    path('offer-letter-requests/<int:pk>', IssueOfferLetterView.as_view(), name='student-issue-offer-letter'),
+    path('completion-letter-requests/<int:pk>', IssueCompletionLetterView.as_view(), name='student-issue-completion-letter')
 ]

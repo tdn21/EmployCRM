@@ -87,3 +87,34 @@ class RequestCompletionLetter(forms.ModelForm):
         model = User
         fields = ('first_name',)
         widgets = {'first_name': HiddenInput(),}
+
+
+class IssueOfferLetter(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+            'profile',
+            'duration',
+            'assigned_to',
+            'joining_date',
+        )
+        widgets = {
+            'joining_date': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+        }
+
+
+class IssueCompletionLetter(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = (
+            'profile',
+            'duration',
+            'assigned_to',
+            'leaves',
+            'joining_date',
+        )
+        widgets = {
+            'joining_date': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+        }

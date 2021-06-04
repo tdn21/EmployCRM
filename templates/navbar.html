@@ -21,6 +21,8 @@
           <a href="{% url 'students:student-list' %}" class="mr-5 hover:text-gray-900">Students</a>
           <a href="{% url 'colleges:college-list' %}" class="mr-5 hover:text-gray-900">Colleges</a>
           <a href="{% url 'profiles:profile-list' %}" class="mr-5 hover:text-gray-900">Profiles</a>
+          <a href="{% url 'students:student-offer-letter-request-list' %}" class="mr-5 hover:text-gray-900">Offer Letter Requests</a>
+          <a href="{% url 'students:student-completion-letter-request-list' %}" class="mr-5 hover:text-gray-900">Completion Letter Requests</a>
         {% else %}
           {% if request.user.is_updated %}
             <a href="{% url 'students:student-my-detail' request.user.pk %}" class="mr-5 hover:text-gray-900">My Details</a>
