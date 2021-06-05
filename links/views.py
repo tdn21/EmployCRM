@@ -3,8 +3,7 @@ from django.shortcuts import render, reverse
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from students.mixins import AdminAndLoginRequiredMixin
-
-from tasks.models import Link
+from students.models import Link
 from .forms import LinkModelForm
 
 User = get_user_model()

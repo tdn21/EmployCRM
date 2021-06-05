@@ -106,7 +106,7 @@
                 <div>
                     Dear <span class="variable" style="display: inline-block;">{{student.first_name|concat:student.last_name|upperCase}}</span>,
                     <p>We have pleasure in appointing you in our Company as the role of <span
-                            class="variable">{{student.profile|upperCase}}</span>, based at
+                            class="variable">{{student.profile.name|upperCase}}</span>, based at
                         Bangalore (WFH), or in such other capacity, that the Management shall from time to time
                         determine.
                     </p>

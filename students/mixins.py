@@ -6,5 +6,5 @@ class AdminAndLoginRequiredMixin(AccessMixin):
     """Verify that the current user is authenticated and is an admin."""
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated or not request.user.is_admin:
-            return redirect("tasks:task-list")
+            return redirect("links:link-list")
         return super().dispatch(request, *args, **kwargs)

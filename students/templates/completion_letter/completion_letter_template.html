@@ -111,7 +111,7 @@
                   <!--  Dear <span class="variable" style="display: inline-block;">{{StudentName}}</span>, -->
                     <p> This is to certify that <span class="variable">{{student.first_name|concat:student.last_name|upperCase}} </span> from
                         <span class="variable">{{student.college_name.name|upperCase}}</span> has successfully worked as a
-						<span class="variable">{{student.profile|upperCase}}</span> in the internship program at Medicento &
+						<span class="variable">{{student.profile.name|upperCase}}</span> in the internship program at Medicento &
 						Ad-Dekho (YourBiz-Media Pvt. Ltd.), handling key reponsibilities from 
 						<span class="variable">{{student.joining_date}}</span> to
 						<span class="variable">{{student.internship_completion_date}}</span>.
@@ -1716,4 +1716,3 @@
 </body>
 
 </html>
-

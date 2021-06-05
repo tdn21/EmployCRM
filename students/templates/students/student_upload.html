@@ -15,6 +15,7 @@
         {% endif %}
         <div class="py-5 border-t border-gray-200">
             <h1 class="text-4xl text-gray-700">Upload Students in CSV format</h1>
+            <h2 class="text-4lg text-gray-700">{{ file_description }} </h2>
         </div>
         <form action="" method="POST" enctype="multipart/form-data" id="upload_students">
         {% csrf_token %}

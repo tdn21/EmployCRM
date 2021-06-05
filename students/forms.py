@@ -1,22 +1,14 @@
 from django import forms
-from django import forms
+from django.forms import HiddenInput
 from django.contrib.auth import get_user_model
-
-from tasks.models import Student
-
+from django.contrib.auth.forms import UserCreationForm, UsernameField
 
 User = get_user_model()
 
 
-profile_choices = (
-    ("Developer", "Developer"),
-    ("AI", "AI")
-)
-
-
 class StudentModelForm(forms.ModelForm):
     class Meta:
-        model = Student
+        model = User
         fields = (
             'first_name',
             'last_name',
@@ -24,12 +16,14 @@ class StudentModelForm(forms.ModelForm):
             'email',
             'college_name',
             'college_roll_number',
+            'gender',
             'profile',
+            'duration',
             'assigned_to',
             'joining_date',
             'offer_letter_issue_date',
+            'leaves',
             'completion_letter_issue_date',
-            # 'is_updated',
             'is_offer_letter_issued',
             'is_completion_letter_issued'
         )
@@ -37,7 +31,6 @@ class StudentModelForm(forms.ModelForm):
             'joining_date': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
             'offer_letter_issue_date': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
             'completion_letter_issue_date': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
-            # 'Profile': forms.MultipleChoiceField(choices=profile_choices)
         }
 
 
@@ -47,10 +40,83 @@ class NewStudentModelForm(forms.ModelForm):
         fields = (
             'first_name',
             'last_name',
-            'username',
+            'college_roll_number',
             'phone_number',
             'email'
         )
         labels = {
-            "username": "roll number"
+            "college_roll_number": "roll number"
+        }
+
+
+class StudentUpdateDetailForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+            'phone_number',
+            'email',
+            'college_name',
+            'college_roll_number',
+            'gender',
+            'profile',
+            'duration',
+            'assigned_to',
+            'joining_date',
+        )
+        widgets = {
+            'joining_date': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+        }
+
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ("username",)
+        field_classes = {'username': UsernameField}
+
+
+class RequestOfferLetter(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name',)
+        widgets = {'first_name': HiddenInput(),}
+
+
+class RequestCompletionLetter(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name',)
+        widgets = {'first_name': HiddenInput(),}
+
+
+class IssueOfferLetter(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+            'profile',
+            'duration',
+            'assigned_to',
+            'joining_date',
+        )
+        widgets = {
+            'joining_date': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+        }
+
+
+class IssueCompletionLetter(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = (
+            'profile',
+            'duration',
+            'assigned_to',
+            'leaves',
+            'joining_date',
+        )
+        widgets = {
+            'joining_date': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         }

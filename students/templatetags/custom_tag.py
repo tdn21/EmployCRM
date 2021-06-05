@@ -1,7 +1,9 @@
 import datetime
 
 from django import template
-from tasks.models import Student
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 register = template.Library()
@@ -34,11 +36,11 @@ def him_or_her(gender):
 
 
 @register.filter(name='check_internship_completed')
-def check_internship_completed(student):
+def check_internship_completed(user):
     today_date=datetime.date.today()
-    joining_date=student.joining_date
-    internship_duration=(int(student.duration))*30
-    no_absents=(int(student.no_of_absents))
+    joining_date=user.joining_date
+    internship_duration=(int(user.duration))*30
+    no_absents=(int(user.leaves))
     delta=today_date-joining_date
     if (delta.days-no_absents>=internship_duration):
         return True
