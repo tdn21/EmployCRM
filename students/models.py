@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
@@ -10,11 +11,19 @@ ASSIGNED_TO_CHOICES = (
 )
 
 
+GENDER_CHOICES=(
+    ('Male','Male'),
+    ('Female','Female'),
+    ('Others','Others'),
+)
+
+
 class User(AbstractUser):
     is_admin = models.BooleanField(default=True)
     phone_number = models.CharField(max_length=10)
     college_name = models.ForeignKey("College", blank=True, null=True, on_delete=models.SET_NULL)
     college_roll_number = models.CharField(max_length=20)
+    gender=models.CharField(max_length=10,choices=GENDER_CHOICES)
     profile = models.ForeignKey("Profile", blank=True, null=True, on_delete=models.SET_NULL)
     assigned_to = models.CharField(max_length=100, choices=ASSIGNED_TO_CHOICES)
     duration = models.IntegerField(blank=True, null=True, default=2)
@@ -22,11 +31,20 @@ class User(AbstractUser):
     joining_date = models.DateField(blank=True, null=True)
     offer_letter_issue_date = models.DateField(blank=True, null=True)
     completion_letter_issue_date = models.DateField(blank=True, null=True)
+    internship_completion_date = models.DateField(blank=True, null=True)
     is_updated = models.BooleanField("is_updated", default=False)
     is_offer_letter_requested = models.BooleanField("is_offer_letter_requested", default=False)
     is_completion_letter_requested = models.BooleanField("is_completion_letter_requested", default=False)
     is_offer_letter_issued = models.BooleanField("is_offer_letter_issued", default=False)
     is_completion_letter_issued = models.BooleanField("is_completion_letter_issued", default=False)
+
+    def get_end_date(self):
+        joining_date = self.joining_date
+        internship_duration = (int(self.duration)) * 30
+        no_absents = (int(self.leaves))
+        days = internship_duration + no_absents
+        end_date = joining_date + datetime.timedelta(days=days)
+        return end_date
 
     def __str__(self):
         username = self.username
@@ -59,7 +77,7 @@ class Profile(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
 
 class Notification(models.Model):

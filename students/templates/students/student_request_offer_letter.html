@@ -11,6 +11,7 @@
             {% if student.is_offer_letter_requested %}
                 {% if student.is_offer_letter_issued %}
                     <h1>Offer Letter issued, please download</h1>
+                    <a href="{% url 'students:student-download-offer-letter' %}" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" target="_blank">Download Offer Letter</a>
                 {% else %}
                     <div class="flex mb-4">
                         <h2 class="text-lg title-font text-gray-500 tracking-widest">

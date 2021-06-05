@@ -17,6 +17,12 @@ from .views import (
     StudentsUploadView
 )
 
+from .letter_generation_views.views import (
+    GeneratePdf,
+    DownloadOfferLetterView,
+    DownloadCompletionLetterView
+)
+
 app_name = "students"
 
 urlpatterns = [
@@ -33,5 +39,8 @@ urlpatterns = [
     path('offer-letter-requests', OfferLetterRequestListView.as_view(), name='student-offer-letter-request-list'),
     path('completion-letter-requests', CompletionLetterRequestListView.as_view(), name='student-completion-letter-request-list'),
     path('offer-letter-requests/<int:pk>', IssueOfferLetterView.as_view(), name='student-issue-offer-letter'),
-    path('completion-letter-requests/<int:pk>', IssueCompletionLetterView.as_view(), name='student-issue-completion-letter')
+    path('completion-letter-requests/<int:pk>', IssueCompletionLetterView.as_view(), name='student-issue-completion-letter'),
+    path('download-offer-letter', DownloadOfferLetterView.as_view(), name='student-download-offer-letter'),
+    path('download-completion-letter', DownloadCompletionLetterView.as_view(), name='student-download-completion-letter'),
+    path('download-pdf', GeneratePdf.as_view(), name='download-pdf')
 ]
