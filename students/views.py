@@ -67,6 +67,13 @@ class StudentUpdateView(AdminAndLoginRequiredMixin, generic.UpdateView):
         queryset = queryset.filter(is_admin = False)
         return queryset
 
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.internship_completion_date = user.get_end_date()
+        user.save()
+
+        return super(StudentUpdateView, self).form_valid(form)
+
     def get_success_url(self):
         return reverse("students:student-list")
 
@@ -96,7 +103,8 @@ class StudentUpdateDetailView(LoginRequiredMixin, generic.UpdateView):
 
     def form_valid(self, form):
         user = form.save(commit=False)
-        user.is_updated = True 
+        user.internship_completion_date = user.get_end_date()
+        user.is_updated = True
         user.save()
 
         return super(StudentUpdateDetailView, self).form_valid(form)
@@ -214,6 +222,7 @@ class IssueCompletionLetterView(AdminAndLoginRequiredMixin, generic.UpdateView):
     def form_valid(self, form):
         user = form.save(commit=False)
         user.is_completion_letter_issued = True 
+        user.internship_completion_date = user.get_end_date()
         user.completion_letter_issue_date = datetime.date.today()
         user.save()
 

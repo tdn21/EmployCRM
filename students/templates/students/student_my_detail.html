@@ -28,6 +28,10 @@
           <span class="ml-auto text-gray-900">{{ student.college_roll_number }}</span>
         </div>
         <div class="flex border-t border-gray-200 py-2">
+          <span class="text-gray-500 pr-5">Gender</span>
+          <span class="ml-auto text-gray-900">{{ student.gender }}</span>
+        </div>
+        <div class="flex border-t border-gray-200 py-2">
           <span class="text-gray-500 pr-5">Profile</span>
           <span class="ml-auto text-gray-900">{{ student.profile }}</span>
         </div>
@@ -39,10 +43,58 @@
           <span class="text-gray-500 pr-5">Duration</span>
           <span class="ml-auto text-gray-900">{{ student.duration }}</span>
         </div>
-        <div class="flex border-t border-b mb-6 border-gray-200 py-2">
+        <div class="flex border-t border-gray-200 py-2">
           <span class="text-gray-500 pr-5">Joining Date</span>
           <span class="ml-auto text-gray-900">{{ student.joining_date }}</span>
         </div>
+        <div class="flex border-t border-b mb-6 border-gray-200 py-2">
+          <span class="text-gray-500 pr-5">Leaves</span>
+          <span class="ml-auto text-gray-900">{{ student.leaves }}</span>
+        </div>
+
+        {% if student.is_offer_letter_issued %}
+          <div class="flex border-t border-gray-200 py-2">
+            <span class="text-gray-500 pr-5">Offer Letter</span>
+            <span class="ml-auto text-gray-900">Issued</span>
+          </div>
+          <div class="flex border-t border-b mb-6 border-gray-200 py-2">
+            <span class="text-gray-500 pr-5">Offer Letter Issue Date</span>
+            <span class="ml-auto text-gray-900">{{ student.offer_letter_issue_date }}</span>
+          </div>
+        {% else %}
+          <div class="flex border-t border-b mb-6 border-gray-200 py-2">
+            <span class="text-gray-500 pr-5">Offer Letter</span>
+            <span class="ml-auto text-gray-900">Not Issued</span>
+          </div>
+        {% endif %}
+
+        {% if student.is_completion_letter_issued %}
+          <div class="flex border-t border-gray-200 py-2">
+            <span class="text-gray-500 pr-5">Completion Letter</span>
+            <span class="ml-auto text-gray-900">Issued</span>
+          </div>
+          <div class="flex border-t border-b mb-6 border-gray-200 py-2">
+            <span class="text-gray-500 pr-5">Completion Letter Issue Date</span>
+            <span class="ml-auto text-gray-900">{{ student.offer_letter_issue_date }}</span>
+          </div>
+        {% else %}
+          <div class="flex border-t border-b mb-6 border-gray-200 py-2">
+            <span class="text-gray-500 pr-5">Completion Letter</span>
+            <span class="ml-auto text-gray-900">Not Issued</span>
+          </div>
+        {% endif %}
+
+        {% if student.is_completion_letter_issued %}
+          <div class="flex border-t border-b mb-6 border-gray-200 py-2">
+            <span class="text-gray-500 pr-5">Intern Completion Date</span>
+            <span class="ml-auto text-gray-900">{{ student.internship_completion_date }}</span>
+          </div>
+        {% else %}
+          <div class="flex border-t border-b mb-6 border-gray-200 py-2">
+            <span class="text-gray-500 pr-5">Tentative Intern Completion Date</span>
+            <span class="ml-auto text-gray-900">{{ student.internship_completion_date }}</span>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
