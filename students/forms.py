@@ -68,6 +68,11 @@ class StudentUpdateDetailForm(forms.ModelForm):
         widgets = {
             'joining_date': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         }
+    def __init__(self, *args, **kwargs):
+        super(StudentUpdateDetailForm, self).__init__(*args, **kwargs)
+
+        for key in self.fields:
+            self.fields[key].required = True
 
 
 class CustomUserCreationForm(UserCreationForm):
