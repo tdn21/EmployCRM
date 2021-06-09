@@ -1,0 +1,68 @@
+{% load custom_tag %}
+{% include 'completion_letter/completion_letter_base.html' %}
+{% block content %}
+{% endblock content %}
+{% if messages %}
+    {% for message in messages %}
+        <div>
+            <!--         | means OR operator-->
+            <strong>{{message|safe}}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+{% if student|check_internship_completed %}
+    {% if not student.request_for_completion_letter %}
+        {% ifnotequal student.status_of_project "Completed" %}
+            <div>
+                <p>
+                    PLEASE COMPLETE YOUR PROJECT FIRST THEN YOU WILL BE ABLE TO DOWNLOAD YOUR COMPLETION CERTIFICATE
+                    BUT IF YOU HAVE COMPLETED YOUR PROJECT THEN ASK THE MANAGER TO UPGRADE THE STATUS OF THE PROJECT.
+                </p>
+            </div>
+        {% else %}
+            {% include 'completion_letter/completion_letter_template.html' %}
+            {% block content1 %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <div >
+                    <p>
+                        PLEASE CHECK YOUR DETAILS CAREFULLY. IT WILL BE DIFFICULT FOR US TO CHANGE YOUR DETAILS AFTER ISSUE CERTIFICATE.
+                    </p>
+                </div>
+                <input type="submit" value="Request for Completion Certificate">
+            </form>
+            {% endblock content1 %}
+        {% endifnotequal %}
+    {% else %}
+        {% if student.is_completion_letter_issued %}
+            {% include 'completion_letter/completion_letter_template.html' %}
+            {% block content2 %}
+                {% if not student.enable_completion_letter_download %}
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div >
+                            <p>
+                                CHECK YOUR COMPLETION CERTIFICATE CAREFULLY IF ANY THING MISSING OR WRONG, PLEASE CONTACT TO ADMIN TO RESOLVE THAT ISSUE.
+                                AFTER ENABLING DOWNLOAD YOU CAN NOT CHANGE YOUR DETAILS AND YOU WILL NOT BE ISSUED ANOTHER COMPLETION CERTIFICATE.
+                            </p>
+                        </div>
+                        <input type="submit" value="Enable Download Completion Certificate">
+                    </form>
+                {%endif%}
+            {% endblock content2 %}
+        {% else %}
+            <div>
+                <p>
+                    PLEASE ASK THE ADMIN TO ENABLE THE PERMISSION TO DOWNLOAD COMPLETION CERTIFICATE.
+                </p>
+            </div>
+        {% endif %}
+    {% endif %}
+{% else %}
+    <div>
+        <p>
+            YOUR INTERNSHIP HAS NOT COMPLETED TILL NOW SO WE CANNOT ALLOW YOU TO DOWNLOAD YOUR INTERNSHIP COMPLETION CERTIFICATE.
+            HOWEVER IN CASE OF URGENCY YOU CAN CONTACT TO YOUR MANAGER WHO CAN ALLOW YOU TO DOWNLOAD YOUR INTERNSHIP CERTIFICATE NOW.
+        </p>
+    </div>
+{% endif %}

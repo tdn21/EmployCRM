@@ -1,0 +1,57 @@
+{% include 'offer_letter/offer_letter.html' %}
+{% block content %}
+{% endblock content %}
+
+
+{%if student.request_for_offer_letter %}
+    {%if student.is_offer_letter_issued %}
+        {% include 'offer_letter/offer_letter_template.html' %}
+        {% block content1 %}
+            {%if not student.enable_offer_letter_download %}
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div >
+                        <p>
+                            CHECK YOUR OFFER LETTER CAREFULLY IF ANY THING MISSING OR WRONG, PLEASE CONTACT TO ADMIN TO RESOLVE THAT ISSUE.
+                            AFTER ENABLING DOWNLOAD YOU CAN NOT CHANGE YOUR DETAILS AND YOU WILL NOT BE ISSUED ANOTHER OFFER LETTER
+                        </p>
+                    </div>
+                    <input type="submit" value="Enable Download Offer Letter">
+                </form>
+            {%endif%}
+        {% endblock content1 %}
+    {% else %}
+        <div>
+            <p>
+                PLEASE ASK THE ADMIN TO ENABLE THE PERMISSION TO DOWNLOAD OFFER LETTER.
+            </p>
+        </div>
+    {% endif %}
+{% else %}
+    {% if messages %}
+        {% for message in messages %}
+            <div>
+    <!--         | means OR operator-->
+                <strong>{{message|safe}}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div >
+        <p>
+            I hereby declare that the details furnished above are true and correct to the best of my knowledge and belief. Also, I hereby agree to abide by the terms and conditions provided above.
+            I allow company to take necessary measures incase I am found in breach of the mentioned clauses.
+            I Formally give my consent to Medicento & YoursBiz to keep my personal information after the date of application and consider my profile for any further opportunities.
+        </p>
+    </div>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="acknowledge">
+            <input type="checkbox" name="check-acknowledge" id="check-acknowledge" required checked>
+            <label for="check-acknowledge">I hereby acknowledge that I had read all the terms and conditions properly and accept all the terms
+                and conditions</label>
+            <br/>
+            <br/>
+        </div>
+        <input type="submit" value="Request For Offer Letter">
+    </form>
+{% endif %}
