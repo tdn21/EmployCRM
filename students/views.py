@@ -1,10 +1,12 @@
 import datetime
 import csv
 import io
+from django.views import View
+from django.http import HttpResponse
 from builtins import next, Exception
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse,redirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .mixins import AdminAndLoginRequiredMixin
@@ -26,7 +28,7 @@ class StudentListView(AdminAndLoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         queryset = User.objects.all()
-        queryset = queryset.filter(is_admin = False)
+        queryset = queryset.filter(is_admin=False)
         return queryset
 
 
@@ -239,6 +241,7 @@ class StudentsUploadView(AdminAndLoginRequiredMixin, generic.CreateView):
             'file_description': 'Order of CSV file should be First Name, Last Name, Roll Number, Phone Number, Email Address.'
         }
         return render(request,template,context)
+
     def post(self,request):
         template = "students/student_upload.html"
         try:
@@ -260,12 +263,27 @@ class StudentsUploadView(AdminAndLoginRequiredMixin, generic.CreateView):
                     user.username = f"{user.first_name}_{user.college_roll_number}"
                     user.is_admin=False
                     user.set_password(user.phone_number)
-                    user.save()
-                # messages.error(request,"Your data")
-                return reverse("students:student-list")
+                    if User.objects.filter(username=user.username).count() == 0:
+                        user.save()
+                return redirect("students:student-list")
             except Exception as e:
+                print(e)
                 messages.error(request, e)
                 return render(request,template)
         except:
             messages.error(request,"Choose a CSV File.")
             return render(request,template)
+
+
+class StudentsExportCSV(AdminAndLoginRequiredMixin,View):
+    def get(self,request):
+        response = HttpResponse(
+            content_type='text/csv',
+            headers={'Content-Disposition': 'attachment; filename="student_list.csv"'},
+        )
+        writer = csv.writer(response)
+        writer.writerow(['first_name','last_name','roll_number','phone_no','email_address'])
+        users=User.objects.filter(is_admin=False)
+        for user in users:
+            writer.writerow([user.first_name,user.last_name,user.college_roll_number,user.phone_number,user.email])
+        return response

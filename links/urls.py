@@ -1,4 +1,4 @@
-from links.views import LinkCreateView, LinkDeleteView, LinkDetailView, LinkListView, LinkUpdateView
+from links.views import LinkCreateView, LinkDeleteView, LinkDetailView, LinkListView, LinkUpdateView,LinksExportCsv
 from django.urls import path
 
 app_name = "links"
@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:pk>/update/', LinkUpdateView.as_view(), name='link-update'),
     path('<int:pk>/delete/', LinkDeleteView.as_view(), name='link-delete'),
     path('create/', LinkCreateView.as_view(), name='link-create'),
+    path('links-export-csv/', LinksExportCsv.as_view(), name='links-export-csv'),
 ]

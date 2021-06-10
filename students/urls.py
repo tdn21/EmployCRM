@@ -14,7 +14,8 @@ from .views import (
     StudentMyDetailView,
     StudentUpdateDetailView,
     StudentUpdateView,
-    StudentsUploadView
+    StudentsUploadView,
+    StudentsExportCSV,
 )
 
 from .letter_generation_views.views import (
@@ -27,6 +28,7 @@ app_name = "students"
 
 urlpatterns = [
     path('', StudentListView.as_view(), name='student-list'),
+    path('export-csv', StudentsExportCSV.as_view(), name='export-csv'),
     path('<int:pk>/', StudentDetailView.as_view(), name='student-detail'),
     path('<int:pk>/my-detail', StudentMyDetailView.as_view(), name='student-my-detail'),
     path('<int:pk>/update/', StudentUpdateView.as_view(), name='student-update'),
