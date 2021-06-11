@@ -83,7 +83,7 @@ class Profile(models.Model):
         return f"{self.name}"
 
 
-class Messages(models.Model):
+class Message(models.Model):
     origin = models.ForeignKey("User", related_name="origin", on_delete=models.CASCADE)
     destination = models.ForeignKey("User", related_name="destination", on_delete=models.CASCADE)
     message = models.TextField()
