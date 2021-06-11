@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'colleges',
     'profiles',
     'links',
-    'messages'
+    'notifications'
 ]
 
 MIDDLEWARE = [

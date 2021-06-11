@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from builtins import next, Exception
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from django.shortcuts import render, reverse,redirect
+from django.shortcuts import render, reverse, redirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .mixins import AdminAndLoginRequiredMixin
