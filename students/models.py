@@ -37,6 +37,8 @@ class User(AbstractUser):
     is_completion_letter_requested = models.BooleanField("is_completion_letter_requested", default=False)
     is_offer_letter_issued = models.BooleanField("is_offer_letter_issued", default=False)
     is_completion_letter_issued = models.BooleanField("is_completion_letter_issued", default=False)
+    is_completion_letter_denied = models.BooleanField("is_completion_letter_denied", default=False)
+    feedback = models.TextField()
 
     def get_end_date(self):
         joining_date = self.joining_date
@@ -81,7 +83,7 @@ class Profile(models.Model):
         return f"{self.name}"
 
 
-class Notification(models.Model):
+class Message(models.Model):
     origin = models.ForeignKey("User", related_name="origin", on_delete=models.CASCADE)
     destination = models.ForeignKey("User", related_name="destination", on_delete=models.CASCADE)
     message = models.TextField()

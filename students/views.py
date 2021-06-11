@@ -6,11 +6,11 @@ from django.http import HttpResponse
 from builtins import next, Exception
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from django.shortcuts import render, reverse,redirect
+from django.shortcuts import render, reverse, redirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .mixins import AdminAndLoginRequiredMixin
-from .forms import IssueCompletionLetter, IssueOfferLetter, NewStudentModelForm, RequestCompletionLetter, RequestOfferLetter, StudentModelForm, CustomUserCreationForm, StudentUpdateDetailForm
+from .forms import DenyCompletionLetterForm, IssueCompletionLetter, IssueOfferLetter, NewStudentModelForm, RequestCompletionLetter, RequestOfferLetter, StudentModelForm, CustomUserCreationForm, StudentUpdateDetailForm
 
 User = get_user_model()
 
@@ -158,7 +158,8 @@ class RequestCompletionLetterView(LoginRequiredMixin, generic.UpdateView):
 
     def form_valid(self, form):
         user = form.save(commit=False)
-        user.is_completion_letter_requested = True 
+        user.is_completion_letter_requested = True
+        user.is_completion_letter_denied = False 
         user.save()
 
         return super(RequestCompletionLetterView, self).form_valid(form)
@@ -229,6 +230,28 @@ class IssueCompletionLetterView(AdminAndLoginRequiredMixin, generic.UpdateView):
         user.save()
 
         return super(IssueCompletionLetterView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse("students:student-completion-letter-request-list")
+
+
+class DenyCompletionLetterView(AdminAndLoginRequiredMixin, generic.UpdateView):
+    template_name = "students/student_deny_completion_letter_request.html"
+    form_class = DenyCompletionLetterForm
+    context_object_name = "student"
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        queryset = queryset.filter(is_admin = False)
+        return queryset
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.is_completion_letter_requested = False
+        user.is_completion_letter_denied = True
+        user.save()
+
+        return super(DenyCompletionLetterView, self).form_valid(form)
 
     def get_success_url(self):
         return reverse("students:student-completion-letter-request-list")
