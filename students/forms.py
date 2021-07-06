@@ -125,3 +125,11 @@ class IssueCompletionLetter(forms.ModelForm):
         widgets = {
             'joining_date': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         }
+
+
+class DenyCompletionLetterForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = (
+            'feedback',
+        )

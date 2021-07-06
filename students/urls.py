@@ -2,6 +2,7 @@ from students.forms import RequestOfferLetter
 from django.urls import path
 from .views import (
     CompletionLetterRequestListView,
+    DenyCompletionLetterView,
     IssueCompletionLetterView,
     IssueOfferLetterView,
     OfferLetterRequestListView,
@@ -14,7 +15,8 @@ from .views import (
     StudentMyDetailView,
     StudentUpdateDetailView,
     StudentUpdateView,
-    StudentsUploadView
+    StudentsUploadView,
+    StudentsExportCSV,
 )
 
 from .letter_generation_views.views import (
@@ -27,6 +29,7 @@ app_name = "students"
 
 urlpatterns = [
     path('', StudentListView.as_view(), name='student-list'),
+    path('export-csv', StudentsExportCSV.as_view(), name='export-csv'),
     path('<int:pk>/', StudentDetailView.as_view(), name='student-detail'),
     path('<int:pk>/my-detail', StudentMyDetailView.as_view(), name='student-my-detail'),
     path('<int:pk>/update/', StudentUpdateView.as_view(), name='student-update'),
@@ -40,6 +43,7 @@ urlpatterns = [
     path('completion-letter-requests', CompletionLetterRequestListView.as_view(), name='student-completion-letter-request-list'),
     path('offer-letter-requests/<int:pk>', IssueOfferLetterView.as_view(), name='student-issue-offer-letter'),
     path('completion-letter-requests/<int:pk>', IssueCompletionLetterView.as_view(), name='student-issue-completion-letter'),
+    path('completion-letter-requests/<int:pk>/deny', DenyCompletionLetterView.as_view(), name='student-deny-completion-letter-request'),
     path('download-offer-letter', DownloadOfferLetterView.as_view(), name='student-download-offer-letter'),
     path('download-completion-letter', DownloadCompletionLetterView.as_view(), name='student-download-completion-letter'),
     path('download-pdf', GeneratePdf.as_view(), name='download-pdf')

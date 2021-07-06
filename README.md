@@ -8,6 +8,9 @@ This project is a django based CRM application providing dashboard for employees
 * colleges
 * links
 * profiles
+* notifications (handles messaging functionality of app)
+
+Cannot use "messages" as app name, as django already has messages app for different purpose
 
 ### DB Models
 

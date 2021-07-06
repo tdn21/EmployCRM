@@ -1,6 +1,9 @@
+import csv
+from django.http import HttpResponse
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, reverse
 from django.views import generic
+from django.views import  View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from students.mixins import AdminAndLoginRequiredMixin
 from students.models import Link
@@ -51,3 +54,16 @@ class LinkDeleteView(AdminAndLoginRequiredMixin, generic.DeleteView):
 
     def get_success_url(self):
         return reverse("links:link-list")
+
+class LinksExportCsv(AdminAndLoginRequiredMixin,View):
+    def get(self,request):
+        response = HttpResponse(
+            content_type='text/csv',
+            headers={'Content-Disposition': 'attachment; filename="links_list.csv"'},
+        )
+        writer = csv.writer(response)
+        writer.writerow(['Name','Link','Description','Profile','Created Date'])
+        links=Link.objects.all()
+        for link in links:
+            writer.writerow([link.name,link.link,link.description,link.profile,link.created.date()])
+        return response

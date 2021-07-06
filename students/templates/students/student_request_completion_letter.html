@@ -8,26 +8,40 @@
         <div class="w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
             <h2 class="text-sm title-font text-gray-500 tracking-widest">STUDENT</h2>
             <h1 class="text-gray-900 text-3xl title-font font-medium mb-4">{{ student }}</h1>
-            {% if student.is_completion_letter_requested %}
-                {% if student.is_completion_letter_issued %}
-                    <h1>Completion Letter issued, please download</h1>
-                    <a href="{% url 'students:student-download-completion-letter' %}" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" target="_blank">Download Completion Letter</a>
-                {% else %}
-                    <div class="flex mb-4">
-                        <h2 class="text-lg title-font text-gray-500 tracking-widest">
-                            Completion Letter not issued by admin.. please wait 1-2 days or contact admin.
-                        </h2>
-                    </div>
-                {% endif %}
-            {% else %}
-                <div class="flex mb-4">
-                    <h2 class="text-lg title-font text-gray-500 tracking-widest">Completion Letter not available!</h2>
-                </div>
+            {% if student.is_completion_letter_denied %}
+                <h1>Your Request is denied by admin... Please check feedback and after taking appropriate steps, Request again</h1>
+                <h1 class="text-gray-900 text-3xl title-font font-medium mb-4">Feedback</h1>
+                <h2> {{ student.feedback }} </h2>
                 <form method="post">
                     {% csrf_token %}
                     {{ form|crispy }}
                     <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Request Completion Letter</button>
                 </from>
+
+            {% else %}
+
+                {% if student.is_completion_letter_requested %}
+                    {% if student.is_completion_letter_issued %}
+                        <h1>Completion Letter issued, please download</h1>
+                        <a href="{% url 'students:student-download-completion-letter' %}" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" target="_blank">Download Completion Letter</a>
+                    {% else %}
+                        <div class="flex mb-4">
+                            <h2 class="text-lg title-font text-gray-500 tracking-widest">
+                                Completion Letter not issued by admin.. please wait 1-2 days or contact admin.
+                            </h2>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="flex mb-4">
+                        <h2 class="text-lg title-font text-gray-500 tracking-widest">Completion Letter not available!</h2>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Request Completion Letter</button>
+                    </from>
+                {% endif %}
+
             {% endif %}
         </div>
     </div>

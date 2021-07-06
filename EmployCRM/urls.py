@@ -13,6 +13,7 @@ urlpatterns = [
     path('colleges/', include('colleges.urls', namespace="colleges")),
     path('profiles/', include('profiles.urls', namespace="profiles")),
     path('links/', include('links.urls', namespace="links")),
+    path('messages/', include('notifications.urls', namespace="notifications")),
     path('admin-signup/', SignupView.as_view(), name="signup"),
     path('logout/', LogoutView.as_view(), name="logout")
 ]
