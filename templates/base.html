@@ -3,11 +3,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width,initial-scale=1" >
     <title>Employ CRM</title>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <style>
+     @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap");
+      * {
+        list-style: none;
+        text-decoration: none;
+        font-family: "Noto Sans JP", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+   /* ul.sidenav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 25%;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+ul.sidenav li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+ul.sidenav li a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+ul.sidenav li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+ @media screen and (max-width: 800px) {
+  ul.sidenav {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  ul.sidenav li a {
+    float: left;
+    padding: 15px;
+  }
+
+} */
+     /*   @media screen and (max-width: 600px) {
+  ul.sidenav li a {
+    text-align: center;
+    float: none;
+  }
+}  */
+@media screen and (max-width: 800px) {
+        .wrapper .sidebar .sidebar-inner{
+          left: -100%;
+        }
+        .wrapper .main-container,.wrapper .main-container .top-navbar{
+          width:100%;
+          margin-left:0;
+
+        }
+        .wrapper .main-container .top-navbar{
+          left: 0;
+        }
+        .wrapper .main-container .top-navbar .hamburger,.wrapper .close{
+          display: block;
+        }
+        .wrapper.active .sidebar .sidebar-inner{
+          left: 0;
+        }
+        .wrapper.active .bg-shadow{
+          visibility: visible;
+          opacity: 0.7;
+        }
+        .wrapper .sidebar .sidebar-inner .sidebar-heading{
+          font-size: 0.85rem;
+      }
+      }
+
+    </style>
+    <link href="/static/css/styles.css" >
+    <script src="/static/js/main.js" ></script>
 </head>
 <body>
     <div class="max-w-7xl mx-auto">
