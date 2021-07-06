@@ -1,0 +1,59 @@
+ <style>
+     @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap");
+      * {
+        list-style: none;
+        text-decoration: none;
+        font-family: "Noto Sans JP", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+ .wrapper {
+        display: flex;
+        width: 100%;
+      }
+      .wrapper .sidebar {
+        position: relative;
+      }
+       .wrapper .sidebar .sidebar-inner {
+        width: 250px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: #2a58ae;
+        z-index: 99;
+        transition: all 0.3s ease;
+      }
+.wrapper .sidebar-menu li a:hover,
+      .wrapper .sidebar-menu li a:active {
+        background: #1d4c9e;
+        color: #fff;
+      }
+@media screen and (max-width: 800px) {
+        .wrapper .sidebar .sidebar-inner{
+          left: -100%;
+        }
+        .wrapper .main-container,.wrapper .main-container .top-navbar{
+          width:100%;
+          margin-left:0;
+
+        }
+        .wrapper .main-container .top-navbar{
+          left: 0;
+        }
+        .wrapper .main-container .top-navbar .hamburger,.wrapper .close{
+          display: block;
+        }
+        .wrapper.active .sidebar .sidebar-inner{
+          left: 0;
+        }
+        .wrapper.active .bg-shadow{
+          visibility: visible;
+          opacity: 0.7;
+        }
+        .wrapper .sidebar .sidebar-inner .sidebar-heading{
+          font-size: 0.85rem;
+      }
+      }
+    </style>
