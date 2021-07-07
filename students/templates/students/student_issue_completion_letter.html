@@ -15,7 +15,10 @@
                 {{ form|crispy }}
                 <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Issue Completion Letter</button>
             </from>
-            <a class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" href="{% url 'students:student-deny-completion-letter-request' student.pk %}" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Deny Completion Letter</a>
+                <br>
+            </br>
+             <center>   <button> <a href="{% url 'students:student-deny-completion-letter-request' student.pk %}" class="flex mx-half text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Deny Completion Letter</a> </button>
+             </center>
         </div>
     </div>
     </section>

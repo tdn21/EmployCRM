@@ -1,3 +1,4 @@
+{% load tailwind_filters %}
 <header class="text-gray-600 body-font">
   <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
     <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
@@ -8,41 +9,65 @@
     </a>
     <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
       {% if not request.user.is_authenticated %}
-      <a href="{% url 'signup' %}" class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 ml-3">
+      <a href="{% url 'signup' %}" class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 ml-3" style="font-weight: bolder">
         Admin SignUp
-        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+        <svg fill="blue" stroke="blue" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
             <path d="M5 12h14M12 5l7 7-7 7"></path>
         </svg>
       </a>
+         <div class="wrapper">
+      <div class="sidebar">
+        <div class="bg-shadow"></div>
+          <div class="sidebar-inner">
+            <div class="close">
+              <i class="fas fa-times" aria-hidden="true"></i>
+            </div>
+      <ul class="sidenav">
       {% endif %}
       {% if request.user.is_authenticated %}
-      <a href="{% url 'links:link-list' %}" class="mr-5 hover:text-gray-900">Important Links</a>
-      <a href="{% url 'notifications:conversation-list' %}" class="mr-5 hover:text-gray-900">Messages</a>
+        <li> <a href="{% url 'links:link-list' %}" class="mr-5 hover:text-blue-500">Important Links</a> </li>
+        <li> <a href="{% url 'notifications:conversation-list' %}" class="mr-5 hover:text-blue-500">Messages</a> </li>
         {% if request.user.is_admin %}
-          <a href="{% url 'students:student-list' %}" class="mr-5 hover:text-gray-900">Students</a>
-          <a href="{% url 'colleges:college-list' %}" class="mr-5 hover:text-gray-900">Colleges</a>
-          <a href="{% url 'profiles:profile-list' %}" class="mr-5 hover:text-gray-900">Profiles</a>
-          <a href="{% url 'students:student-offer-letter-request-list' %}" class="mr-5 hover:text-gray-900">Offer Letter Requests</a>
-          <a href="{% url 'students:student-completion-letter-request-list' %}" class="mr-5 hover:text-gray-900">Completion Letter Requests</a>
+        <li> <a href="{% url 'students:student-list' %}" class="mr-5 hover:text-blue-500">Students</a> </li>
+       <li> <a href="{% url 'colleges:college-list' %}" class="mr-5 hover:text-blue-500">Colleges</a> </li>
+      <li> <a href="{% url 'profiles:profile-list' %}" class="mr-5 hover:text-blue-500">Profiles</a> </li>
+      <li>  <a href="{% url 'students:student-offer-letter-request-list' %}" class="mr-5 hover:text-blue-500">Offer Letter Requests</a> </li>
+      <li>   <a href="{% url 'students:student-completion-letter-request-list' %}" class="mr-5 hover:text-blue-500">Completion Letter Requests</a> </li>
         {% else %}
           {% if request.user.is_updated %}
-            <a href="{% url 'students:student-my-detail' request.user.pk %}" class="mr-5 hover:text-gray-900">My Details</a>
-            <a href="{% url 'students:student-request-offer-letter' request.user.pk %}" class="mr-5 hover:text-gray-900">Offer Letter</a>
-            <a href="{% url 'students:student-request-completion-letter' request.user.pk %}" class="mr-5 hover:text-gray-900">Completion Letter</a>
+      <li>    <a href="{% url 'students:student-my-detail' request.user.pk %}" class="mr-5 hover:text-blue-500">My Details</a> </li>
+      <li> <a href="{% url 'students:student-request-offer-letter' request.user.pk %}" class="mr-5 hover:text-blue-500">Offer Letter</a> </li>
+      <li>      <a href="{% url 'students:student-request-completion-letter' request.user.pk %}" class="mr-5 hover:text-blue-500">Completion Letter</a> </li>
           {% else %}
-            <a href="{% url 'students:student-update-detail' request.user.pk %}" class="mr-5 hover:text-gray-900">Update Details</a>
+      <li>    <a  href="{% url 'students:student-update-detail' request.user.pk %}" class=" mr-5 hover:text-blue-500">Update Details</a> </li>
           {% endif %}
         {% endif %}
       {% endif %}
-    </nav>
     {% if request.user.is_authenticated %}
-    Logged in as: {{ request.user.username }}
-    <a href="{% url 'logout' %}" class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 ml-3">
-        Logout
-        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+   <!-- Logged in as: {{ request.user.username }} -->
+    <li> {{ request.user.username }} </li>
+   <li> <a href="{% url 'logout' %}" class="inline-flex items-center bg-white-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 ml-3 " style="font-weight: bolder">
+      Logout
+         <svg fill="blue" stroke="blue" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
             <path d="M5 12h14M12 5l7 7-7 7"></path>
         </svg>
-    </a>
+   </a> </li>
     {% endif %}
+    </ul>
+      </div>
+    </div>
+    </div>
+        <div class="main-container">
+        <div class="top-navbar">
+          <div class="hamburger">
+            <div class="hamburger-inner">
+              <i class="fas fa-bars" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </nav>
   </div>
 </header>
